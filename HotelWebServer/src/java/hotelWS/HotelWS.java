@@ -27,6 +27,9 @@ public class HotelWS {
 
     /**
      * Web service operation
+     * @param id_hotel
+     * @param date
+     * @return 
      */
     @WebMethod(operationName = "freeRooms")
     public Integer freeRooms(@WebParam(name = "id_hotel") Integer id_hotel, @WebParam(name = "date") Integer date) {
@@ -71,6 +74,9 @@ public class HotelWS {
 
     /**
      * Web service operation
+     * @param id_hotel
+     * @param fecha
+     * @return 
      */
     @WebMethod(operationName = "booking")
     public Integer booking(@WebParam(name = "id_hotel") Integer id_hotel, @WebParam(name = "fecha") Integer fecha) {
