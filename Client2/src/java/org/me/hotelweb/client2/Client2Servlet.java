@@ -44,15 +44,17 @@ public class Client2Servlet extends HttpServlet {
             out.println("<title>Servlet Client2Servlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Client2Servlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Client2Servlet</h1>");
             
             try {
                 Integer id = 1;
                 Integer date = 20170130;
-                Integer res1 = booking(id, date);
-                System.out.print("Result = " + res1);
+                Integer res1 = freeRooms(id, date);
+                out.println("Habitaciones libres = " + res1 + "<br />");
                 Integer res2 = booking(id, date);
-                System.out.println("Result = " + res2);
+                out.println("Habitaciones ocupadas despues de reservar = " + res2 + "<br />");
+                res1 = freeRooms(id, date);
+                out.println("Habitaciones libres despues de reservar = " + res1 + "<br />");
             }
             catch (Exception ex) {
             out.println("Exception: " + ex);

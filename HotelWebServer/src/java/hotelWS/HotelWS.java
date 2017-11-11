@@ -105,6 +105,9 @@ public class HotelWS {
                     PreparedStatement ps = connection.prepareStatement("update hotel_fecha set num_hab_ocupadas = num_hab_ocupadas +1 where id_hotel= ?");
                     ps.setInt(1, id_hotel);
                     ps.executeUpdate();
+                    PreparedStatement ps2 = connection.prepareStatement("update hotel_fecha set num_hab_libres = num_hab_libres -1 where id_hotel= ?");
+                    ps2.setInt(1, id_hotel);
+                    ps2.executeUpdate();
                 }
             }
         }
