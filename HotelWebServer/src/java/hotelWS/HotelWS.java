@@ -39,16 +39,19 @@ public class HotelWS {
         {            
           // load the sqlite-JDBC driver using the current class loader
             Class.forName("org.sqlite.JDBC"); 
-            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Melani\\Desktop\\FIB\\TI\\AD\\LAB1\\ad-travelagency\\test");
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Melani\\Desktop\\FIB\\TI\\AD\\lab3-ad\\dblab3");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
             
-            String query = "select * from hotel_fecha where id_hotel= ?";
+            String query = "select * from hotel_fecha where id_hotel= ? and fecha = ?";
+           
             PreparedStatement pstmt = connection.prepareStatement(query);
-            pstmt.setString(1, id_hotel.toString());
+            pstmt.setInt(1, id_hotel);
+            pstmt.setInt(2, date);
             ResultSet rs = pstmt.executeQuery();
-            
+
             while(rs.next()) {
+                System.out.println("hello");
                 ret = rs.getInt("num_hab_libres");
             }
         }
@@ -86,13 +89,14 @@ public class HotelWS {
         {            
           // load the sqlite-JDBC driver using the current class loader
             Class.forName("org.sqlite.JDBC"); 
-            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Melani\\Desktop\\FIB\\TI\\AD\\LAB1\\ad-travelagency\\test");
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Melani\\Desktop\\FIB\\TI\\AD\\lab3-ad\\dblab3");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
             
-            String query = "select * from hotel_fecha where id_hotel= ?";
+            String query = "select * from hotel_fecha where id_hotel= ? and fecha = ?";
             PreparedStatement pstmt = connection.prepareStatement(query);
-            pstmt.setString(1, id_hotel.toString());
+            pstmt.setInt(1, id_hotel);
+            pstmt.setInt(2, fecha);
             ResultSet rs = pstmt.executeQuery();
             
             while(rs.next()) {
