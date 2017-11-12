@@ -42,5 +42,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/hotelws"/>
         <delete dir="${build.generated.dir}/jax-wsCache/HotelWS"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-HotelWS"/>
+    <target name="wsimport-client-VueloWebService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/VueloWebService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/VueloWebService" destdir="${build.generated.dir}/jax-wsCache/VueloWebService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/VueloWebService/wsdl/localhost_8080/VueloWebService/VueloWebService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/VueloWebService/VueloWebService?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/VueloWebService/wsdl/localhost_8080/VueloWebService/VueloWebService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/VueloWebService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/VueloWebService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-VueloWebService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/me/vuelo"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/VueloWebService"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-HotelWS, wsimport-client-VueloWebService"/>
 </project>
