@@ -51,7 +51,6 @@ public class HotelWS {
             ResultSet rs = pstmt.executeQuery();
 
             while(rs.next()) {
-                System.out.println("hello");
                 ret = rs.getInt("num_hab_libres");
             }
         }
@@ -99,16 +98,27 @@ public class HotelWS {
             pstmt.setInt(2, fecha);
             ResultSet rs = pstmt.executeQuery();
             
-            while(rs.next()) {
-                if (rs.getInt("num_hab_libres") > 0) {
-                    ret = rs.getInt("num_hab_ocupadas") + 1;
-                    PreparedStatement ps = connection.prepareStatement("update hotel_fecha set num_hab_ocupadas = num_hab_ocupadas +1 where id_hotel= ?");
-                    ps.setInt(1, id_hotel);
-                    ps.executeUpdate();
-                    PreparedStatement ps2 = connection.prepareStatement("update hotel_fecha set num_hab_libres = num_hab_libres -1 where id_hotel= ?");
-                    ps2.setInt(1, id_hotel);
-                    ps2.executeUpdate();
-                }
+            if (!rs.isBeforeFirst() ) {    
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO hotel_fecha (id_hotel, fecha, num_hab_ocupadas, num_hab_libres) VALUES(?,?,?,?)"); 
+                ps.setInt(1, id_hotel);
+                ps.setInt(2, fecha);
+                ps.setInt(3, 1);
+                ps.setInt(4, 4);
+                ps.executeUpdate();
+                ret = 1;
+            } 
+            else {
+                while(rs.next()) {
+                    if (rs.getInt("num_hab_libres") > 0) {
+                        ret = rs.getInt("num_hab_ocupadas") + 1;
+                        PreparedStatement ps = connection.prepareStatement("update hotel_fecha set num_hab_ocupadas = num_hab_ocupadas +1 where id_hotel= ?");
+                        ps.setInt(1, id_hotel);
+                        ps.executeUpdate();
+                        PreparedStatement ps2 = connection.prepareStatement("update hotel_fecha set num_hab_libres = num_hab_libres -1 where id_hotel= ?");
+                        ps2.setInt(1, id_hotel);
+                        ps2.executeUpdate();
+                    }
+                } 
             }
         }
         catch(SQLException | ClassNotFoundException e)
